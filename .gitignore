@@ -1,0 +1,12 @@
+# macOS specific files
+.DS_Store
+
+# Python virtual environment
+.venv/
+
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+
+# Logs and other generated files
+*.log
