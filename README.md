@@ -44,7 +44,7 @@ Create Table text_data
 ```
 CREATE TABLE text_data (
     id SERIAL PRIMARY KEY,
-    text_field TEXT NOT NULL,
+    text TEXT NOT NULL,
     embedding VECTOR(768)  -- Adjust the dimension (768) as needed, but for the used model its 768
 );
 ```
