@@ -23,9 +23,7 @@ The Python script requires the following libraries, which can be installed via t
 
 ### Setup
 
-# 1.Run Postgres DB with pgvecto.rs in a docker container
-
-
+Run Postgres DB with pgvecto.rs in a docker container
 ```
 docker run \
 --name pgvecto-rs-demo \
