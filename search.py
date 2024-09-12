@@ -51,7 +51,7 @@ def knn_query(embedding, k=3):
 
 
 # Embed a new sentence and perform a KNN search
-new_text = "What is a three-pointer in basketball"
+new_text = "What is embedding"
 
 print(f"Query Text: {new_text}")
 new_embedding = embed_text(new_text)
