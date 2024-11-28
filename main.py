@@ -2,6 +2,7 @@ import sys
 from vectorize import vectorize_and_save
 from search import search_for_text
 from chunk import chunk_text
+from dotenv import load_dotenv
 
 
 def menu():
@@ -50,4 +51,6 @@ def main():
 
 
 if __name__ == "__main__":
+    # Load environment variables from the .env file
+    load_dotenv()
     main()

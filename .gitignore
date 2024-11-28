@@ -10,3 +10,6 @@
 
 # Logs and other generated files
 *.log
+
+#environment vars
+.env

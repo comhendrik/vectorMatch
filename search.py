@@ -8,6 +8,10 @@ MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # A small embedding model
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModel.from_pretrained(MODEL_NAME)
 
+import os
+
+
+
 
 def embed_text(text):
     """Generate embeddings for the given text using Hugging Face transformer model."""
@@ -18,12 +22,12 @@ def embed_text(text):
     embedding = outputs.last_hidden_state.mean(dim=1).squeeze().tolist()  # Convert to list of floats
     return embedding
 
+
 def embedding_to_pgvector(embedding):
     """Convert the embedding list to a format compatible with PostgreSQL pgvector."""
     embedding_str = "[" + ", ".join(f"{x:.6f}" for x in embedding) + "]"
 
     return embedding_str
-
 
 
 def knn_query(embedding, cursor, k=3):
@@ -42,11 +46,11 @@ def knn_query(embedding, cursor, k=3):
 def search_for_text(text: str):
     # Connect to the PostgreSQL database
     connection = psycopg2.connect(
-        host="localhost",
-        port="5432",
-        database="postgres",
-        user="postgres",
-        password="mysecretpassword"
+        host=os.getenv('HOST'),
+        port=os.getenv('PORT'),
+        database=os.getenv('DB'),
+        user=os.getenv('POSTGRES_USER'),
+        password=os.getenv('PW')
     )
     cursor = connection.cursor()
 

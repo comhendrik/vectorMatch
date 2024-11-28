@@ -3,6 +3,7 @@ from psycopg2 import sql
 from transformers import AutoTokenizer, AutoModel
 import torch
 from typing import List
+import os
 
 # Load Hugging Face model and tokenizer for embeddings
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # A small embedding model
@@ -30,11 +31,11 @@ def embedding_to_pgvector(embedding):
 def vectorize_and_save(chunks: List[str]):
     """Vectorize chunks and bring into db"""
     connection = psycopg2.connect(
-        host="localhost",
-        port="5432",
-        database="postgres",
-        user="postgres",
-        password="mysecretpassword"
+        host=os.getenv('HOST'),
+        port=os.getenv('PORT'),
+        database=os.getenv('DB'),
+        user=os.getenv('POSTGRES_USER'),
+        password=os.getenv('PW')
     )
     cursor = connection.cursor()
 
