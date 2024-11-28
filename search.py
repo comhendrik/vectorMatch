@@ -25,18 +25,8 @@ def embedding_to_pgvector(embedding):
     return embedding_str
 
 
-# Connect to the PostgreSQL database
-connection = psycopg2.connect(
-    host="localhost",
-    port="5432",
-    database="postgres",
-    user="postgres",
-    password="mysecretpassword"
-)
-cursor = connection.cursor()
 
-
-def knn_query(embedding, k=3):
+def knn_query(embedding, cursor, k=3):
     """Find the k nearest neighbors for the given embedding."""
     query = sql.SQL(
         """
@@ -49,21 +39,32 @@ def knn_query(embedding, k=3):
     cursor.execute(query, [embedding_to_pgvector(embedding), k])
     return cursor.fetchall()
 
+def search_for_text(text: str):
+    # Connect to the PostgreSQL database
+    connection = psycopg2.connect(
+        host="localhost",
+        port="5432",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+    cursor = connection.cursor()
 
-# Embed a new sentence and perform a KNN search
-new_text = "What is embedding"
+    new_embedding = embed_text(text)
 
-print(f"Query Text: {new_text}")
-new_embedding = embed_text(new_text)
+    # Find the top 3 nearest neighbors
+    results = knn_query(new_embedding, cursor, k=3)
 
-# Find the top 3 nearest neighbors
-results = knn_query(new_embedding, k=3)
+    # Output the results
+    print("KNN Results:")
+    for result in results:
+        print(f"ID: {result[0]}, Text: {result[1]}")
 
-# Output the results
-print("KNN Results:")
-for result in results:
-    print(f"ID: {result[0]}, Text: {result[1]}")
+    # Close the database connection
+    cursor.close()
+    connection.close()
 
-# Close the database connection
-cursor.close()
-connection.close()
+
+
+
+
