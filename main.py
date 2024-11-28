@@ -30,6 +30,36 @@ def search():
 
 
 def main():
+
+    # Load environment variables from the .env file
+    load_dotenv()
+
+    # Defining the text in a 3D-like style using spacing
+    text_lines = [
+        "",
+        "",
+        "",
+        "",
+        " V   V  EEEEE  CCCC  TTTTT   OOO   RRRR    M   M  AAAAA  TTTTT  CCCC  H   H",
+        "  V V   E      C       T    O   O  R   R   MM MM  A   A    T   C      H   H",
+        "   V    EEEE   C       T    O   O  RRRR    M M M  AAAAA    T   C      HHHHH",
+        "  V V   E      C       T    O   O  R  R    M   M  A   A    T   C      H   H",
+        " V   V  EEEEE  CCCC    T     OOO   R   R   M   M  A   A    T   CCCC   H   H"
+        "",
+        "",
+        "",
+        "",
+    ]
+
+    # Loop to simulate 3D printing with varying spaces for the depth illusion
+    print("\033[H\033[J", end="")
+    # Print the text with increasing spaces for depth effect
+    for line in text_lines:
+        print(" " + line)
+
+
+
+
     while True:
         menu()
         try:
@@ -51,6 +81,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Load environment variables from the .env file
-    load_dotenv()
     main()
