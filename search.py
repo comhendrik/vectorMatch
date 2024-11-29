@@ -2,6 +2,8 @@ import psycopg2
 from psycopg2 import sql
 from transformers import AutoTokenizer, AutoModel
 import torch
+from ollama import chat
+from ollama import ChatResponse
 
 # Load Hugging Face model and tokenizer for embeddings
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # A small embedding model
@@ -57,16 +59,38 @@ def search_for_text(text: str):
     new_embedding = embed_text(text)
 
     # Find the top 3 nearest neighbors
-    results = knn_query(new_embedding, cursor, k=3)
+    results = knn_query(new_embedding, cursor, k=10)
 
-    # Output the results
-    print("KNN Results:")
+    # build context out of outputs
+    context = []
     for result in results:
-        print(f"ID: {result[0]}, Text: {result[1]}")
+        context.append(result[1])
+
 
     # Close the database connection
     cursor.close()
     connection.close()
+
+    #implement fetched data into llm
+
+    prompt = f"""
+    You are a knowledgeable assistant that answers questions on various topics. 
+    Your users are asking generous questions that should be answered short and simple. 
+    """
+
+    messages = [
+        {
+            "role": "system",
+            "content": prompt,
+        },
+        {
+            "role": "user",
+            "content": f"based on the following context:\n\n{context}\n\nAnswer the query: '{text}'",
+        },
+    ]
+
+    response: ChatResponse = chat(model='llama3.2', messages=messages)
+    print(response['message']['content'])
 
 
 
