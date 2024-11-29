@@ -1,12 +1,13 @@
 # Text Embedding and Search with PostgreSQL and Hugging Face in Docker
 
-This project demonstrates a Python script that embeds text using a model from Hugging Face, stores the embeddings in PostgreSQL with the `pgvector` extension, and allows searching the database using regular text queries by comparing embeddings.
+This project demonstrates a Python script that embeds text using a model from Hugging Face, stores the embeddings in PostgreSQL with the `pgvector` extension, and allows searching the database using regular text queries by comparing embeddings. After the data is retrieved an llm is used to generate a response with ollama
 
 ## Features
 - **Embeddings:** Use Hugging Face's transformers to embed input text.
 - **PostgreSQL with pgvector:** Store embeddings in a PostgreSQL database using the `pgvector` extension to perform vector-based searches.
 - **Search Functionality:** Retrieve database entries by comparing the input text's embedding to the stored embeddings.
 - **Docker Support:** Run PostgreSQL and the pgvector extension within Docker for easy setup and deployment.
+- **Ollama:** Generate response based on local llm
 
 ## Prerequisites
 
@@ -48,6 +49,10 @@ CREATE TABLE text_data (
     embedding VECTOR(768)  -- Adjust the dimension (768) as needed, but for the used model its 768
 );
 ```
+Download and load a fitting llm (this project uses llama3.2)
+```
+ollama run llama3.2
+```
 Create a venv in your projects repository and install the packages
 ```
 python -m venv myenv           # Create a virtual environment
@@ -55,12 +60,7 @@ source myenv/bin/activate      # Activate the environment (macOS/Linux)
 # myenv\Scripts\activate        # Activate the environment (Windows)
 pip install -r requirements.txt # Install dependencies
 ```
-Run python files
-Embeed and save text
+Run
 ```
-python (or python3) vectorize.py
-```
-Search For Querys
-```
-python (or python3) search.py
+python (or python3) main.py
 ```

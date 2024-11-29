@@ -24,8 +24,8 @@ def vectorize():
 
 
 def search():
-    """Displays some example information."""
-    text = input("\nInput to search for similar vector entries: ").strip()
+    """Retrieves data based on query and answer with a combining the query, data and a llm"""
+    text = input("\nQuery: ").strip()
     search_for_text(text)
 
 
