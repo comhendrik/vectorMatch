@@ -1,25 +1,20 @@
-# Use the Ollama base image
-FROM ollama/ollama:latest
+# Use the official Python image as the base image
+FROM python:3.11-slim
 
-# Install required system packages
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    rm -rf /var/lib/apt/lists/*
 
-# Install the LLM Llama3.2 using Ollama
-RUN ollama install llama3.2
-
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the entire project directory into the container
+# Copy the entire current directory (including subdirectories) to /app in the container
 COPY . /app
 
-# Install Python dependencies (if requirements.txt exists)
-RUN if [ -f "requirements.txt" ]; then pip3 install --no-cache-dir -r requirements.txt; fi
+# Install the required Python packages from requirements.txt (if available)
+# If you don't have a requirements.txt file, you can skip this step or add necessary packages manually.
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose a port (if your Python app uses one)
+# Expose the port that the application will run on (adjust as needed)
 EXPOSE 8000
 
-# Set the default command to run the Python application
-CMD ["python3", "app.py"]
+# Command to run the Python application
+# You can replace 'app.py' with the entry point of your application
+CMD ["python", "main.py"]
