@@ -2,9 +2,8 @@ import psycopg2
 from psycopg2 import sql
 from transformers import AutoTokenizer, AutoModel
 import torch
-from ollama import chat
-from ollama import ChatResponse
 import os
+from ollama import Client
 
 # Load Hugging Face model and tokenizer for embeddings
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # A small embedding model
@@ -45,11 +44,11 @@ def knn_query(embedding, cursor, k=3):
 def search_for_text(text: str):
     # Connect to the PostgreSQL database
     connection = psycopg2.connect(
-        host=os.getenv('HOST'),
-        port=os.getenv('PORT'),
-        database=os.getenv('DB'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('PW')
+        host="pgvectors",
+        port="5432",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
     )
     cursor = connection.cursor()
 
@@ -86,7 +85,10 @@ def search_for_text(text: str):
         },
     ]
 
-    response: ChatResponse = chat(model='llama3.2', messages=messages)
+    client = Client(
+        host='http://ollama:11434',
+    )
+    response = client.chat(model='llama3.2', messages=messages)
     print(response['message']['content'])
 
 

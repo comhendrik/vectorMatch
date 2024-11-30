@@ -31,11 +31,11 @@ def embedding_to_pgvector(embedding):
 def vectorize_and_save(chunks: List[str]):
     """Vectorize chunks and bring into db"""
     connection = psycopg2.connect(
-        host=os.getenv('HOST'),
-        port=os.getenv('PORT'),
-        database=os.getenv('DB'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('PW')
+        host="pgvectors",
+        port="5432",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
     )
     cursor = connection.cursor()
 
