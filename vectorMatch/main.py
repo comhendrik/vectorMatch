@@ -40,11 +40,11 @@ def main():
         "",
         "",
         "",
-        " V   V  EEEEE  CCCC  TTTTT   OOO   RRRR    M   M  AAAAA  TTTTT  CCCC  H   H",
-        "  V V   E      C       T    O   O  R   R   MM MM  A   A    T   C      H   H",
-        "   V    EEEE   C       T    O   O  RRRR    M M M  AAAAA    T   C      HHHHH",
-        "  V V   E      C       T    O   O  R  R    M   M  A   A    T   C      H   H",
-        " V   V  EEEEE  CCCC    T     OOO   R   R   M   M  A   A    T   CCCC   H   H"
+        "V       V  EEEEE  CCCC  TTTTT   OOO   RRRR      M   M  AAAAA  TTTTT  CCCC  H   H",
+        " V     V   E      C       T    O   O  R   R     MM MM  A   A    T   C      H   H",
+        "  V   V    EEEE   C       T    O   O  RRRR      M M M  AAAAA    T   C      HHHHH",
+        "   V V     E      C       T    O   O  R  R      M   M  A   A    T   C      H   H",
+        "    V      EEEEE  CCCC    T     OOO   R   R     M   M  A   A    T   CCCC   H   H"
         "",
         "",
         "",

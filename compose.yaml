@@ -37,8 +37,10 @@ services:
       - "11434:11434"
     volumes:
       - ./ollama_data:/data
+      - ./entrypoint.sh:/entrypoint.sh
     tty: true
     restart: always
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
     networks:
       - app_network
 
